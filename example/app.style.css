@@ -1,0 +1,204 @@
+#app {
+    font-family            : "Avenir", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing : antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align             : center;
+    color                  : #2c3e50;
+    margin-top             : 60px;
+}
+
+#app .title {
+    margin-bottom: 30px;
+}
+
+#app .items-per-page {
+    height     : 100%;
+    display    : flex;
+    align-items: center;
+    color      : #337ab7;
+}
+
+#app .items-per-page label {
+    margin: 0 15px;
+}
+
+/* Datatable CSS */
+
+#app .datatable-component .header-column-2 {
+    color: red;
+}
+
+#app .datatable-component .header-column-3 {
+    color: green;
+}
+
+#app .datatable-component .header-column-4 {
+    color: yellow;
+}
+
+#app .datatable-component .header-column-5 {
+    color: pink;
+}
+
+#app .datatable-component .header-column-6 {
+    color: blueviolet;
+}
+
+#app .datatable-component .row-2 {
+    color: goldenrod;
+}
+
+#app .datatable-component .row-2 .column-2 {
+    color: purple;
+}
+
+#app .datatable-component .row-3 {
+    color: silver;
+}
+
+#app .datatable-component .row-5 .column-1,
+#app .datatable-component .row-5 .column-6 {
+    color: rosybrown;
+}
+
+#app .datatable-component .row-7 .column-4 {
+    color: steelblue;
+}
+
+#app .datatable-component .row-9 .column-5 {
+    color: springgreen;
+}
+
+#app .datatable-component .row-4 {
+    color: mediumturquoise;
+}
+
+.datatable-component .header-item {
+    cursor    : pointer;
+    color     : #337ab7;
+    transition: color 0.15s ease-in-out;
+}
+
+.datatable-component .header-item:hover {
+    color: #ed9b19;
+}
+
+.datatable-component .header-item.no-sortable {
+    cursor: default;
+}
+
+.datatable-component .header-item.no-sortable:hover {
+    color: #337ab7;
+}
+
+.datatable-component .header-item .th-wrapper {
+    display    : flex;
+    width      : 100%;
+    height     : 100%;
+    font-weight: bold;
+}
+
+.datatable-component .header-item .th-wrapper.checkboxes {
+    justify-content: center;
+}
+
+.datatable-component .header-item .th-wrapper .arrows-wrapper {
+    display        : flex;
+    flex-direction : column;
+    margin-left    : 10px;
+    justify-content: space-between;
+}
+
+.datatable-component .header-item .th-wrapper .arrows-wrapper.centralized {
+    justify-content: center;
+}
+
+.datatable-component .arrow {
+    transition  : color 0.15s ease-in-out;
+    width       : 0;
+    height      : 0;
+    border-left : 8px solid transparent;
+    border-right: 8px solid transparent;
+}
+
+.datatable-component .arrow.up {
+    border-bottom: 8px solid #337ab7;
+}
+
+.datatable-component .arrow.up:hover {
+    border-bottom: 8px solid #ed9b19;
+}
+
+.datatable-component .arrow.down {
+    border-top: 8px solid #337ab7;
+}
+
+.datatable-component .arrow.down:hover {
+    border-top: 8px solid #ed9b19;
+}
+
+.datatable-component .footer {
+    display        : flex;
+    justify-content: space-between;
+    width          : 500px;
+}
+
+/* End Datatable CSS */
+
+/* Pagination CSS */
+.datatable-component-pagination {
+    list-style     : none;
+    display        : flex;
+    align-items    : center;
+    justify-content: flex-start;
+    margin         : 0;
+    padding        : 0;
+    width          : 300px;
+    height         : 30px;
+}
+
+.datatable-component-pagination .pagination-item {
+    width       : 30px;
+    margin-right: 5px;
+    font-size   : 16px;
+    transition  : color 0.15s ease-in-out;
+}
+
+.datatable-component-pagination .pagination-item.selected {
+    color: #ed9b19;
+}
+
+.datatable-component-pagination .pagination-item .page-btn {
+    background-color: transparent;
+    outline         : none;
+    border          : none;
+    color           : #337ab7;
+    transition      : color 0.15s ease-in-out;
+}
+
+.datatable-component-pagination .pagination-item .page-btn:hover {
+    color: #ed9b19;
+}
+
+.datatable-component-pagination .pagination-item .page-btn:disabled {
+    cursor    : not-allowed;
+    box-shadow: none;
+    opacity   : .65;
+}
+
+/* END PAGINATION CSS */
+
+/* ITEMS PER PAGE DROPDOWN CSS */
+.item-per-page-dropdown {
+    background-color: transparent;
+    min-height      : 30px;
+    border          : 1px solid #337ab7;
+    border-radius   : 5px;
+    color           : #337ab7;
+}
+
+.item-per-page-dropdown:hover {
+    cursor: pointer;
+}
+
+/* END ITEMS PER PAGE DROPDOWN CSS */

@@ -1,0 +1,102 @@
+<table :class="['datatable-component', css.table]">
+    <thead :class="css.thead" :style="theadStyle">
+        <draggable v-model="orderedHeaders" tag="tr" :class="css.theadTr">
+            <th v-for="(item, columnIndex) in orderedHeaders" :key="item.label"
+                :class="headerItemClass(item, [css.theadTh, `header-column-${columnIndex}`])"
+                :style="getColumnStyle(item)">
+                <!-- header free text -->
+                <div v-if="!isFieldSpecial(item.name) && !item.customHeader && extractArgs(item.name) !== 'actions'"
+                    :class="[css.thWrapper, `header-column-${columnIndex}`]" @click="orderBy(item.name)">
+                    <template v-if="item.i18nLabel">
+                        {{ $t(item.i18nLabel) }}
+                    </template>
+                    <template v-else>
+                        {{ item.label }}
+                    </template>
+                    <div v-if="item.sortable" :class="arrowsWrapper(item.name, css.arrowsWrapper)">
+                        <div v-if="showOrderArrow(item, 'desc')" :class="css.arrowUp" />
+                        <div v-if="showOrderArrow(item, 'asc')" :class="css.arrowDown" />
+                    </div>
+                </div>
+                <!-- end header free text -->
+                <!-- header custom header -->
+                <div v-if="!isFieldSpecial(item.name) && item.customHeader"
+                    :class="[css.thWrapper, `header-column-${columnIndex}`]" @click="orderBy(item.name)">
+                    <slot v-if="item.customHeader" :header-data="item" :name="customHeaderName(item)" />
+                    <div v-if="item.sortable" :class="arrowsWrapper(item.name, css.arrowsWrapper)">
+                        <div v-if="showOrderArrow(item, 'desc')" :class="css.arrowUp" />
+                        <div v-if="showOrderArrow(item, 'asc')" :class="css.arrowDown" />
+                    </div>
+                </div>
+                <!-- end header custom header -->
+                <!-- especial field -->
+                <div v-if="isFieldSpecial(item.name) && extractArgs(item.name) === 'checkboxes'"
+                    :class="css.thWrapperCheckboxes" class="checkbox">
+                    <input id="tbl-checkAll-chk" type="checkbox" :class="css.checkboxHeader" :checked="checkedAll"
+                        @click="checkAll" />
+                    <label for="tbl-checkAll-chk"></label>
+                </div>
+                <!-- end especial field -->
+                <div v-if="isFieldSpecial(item.name) && extractArgs(item.name) === 'actions'"
+                    :class="[css.thWrapper, `header-column-${columnIndex} header-column-actions header-column-actions-${item.name}`]">
+                    <slot :name="item.name + ':header'" />
+                </div>
+            </th>
+        </draggable>
+    </thead>
+    <tbody :class="css.tbody" :style="tbodyStyle">
+        <template v-if="isLoading">
+            <tr :class="css.tbodyTrSpinner">
+                <td :colspan="headers.length" :class="css.tbodyTdSpinner">
+                    <slot name="loadingIndicator" />
+                </td>
+            </tr>
+        </template>
+
+        <!-- table rows -->
+        <template v-else-if="data.length">
+            <tr v-for="(item, index) in data" :key="index" :class="[css.tbodyTr, `row-${index}`]">
+                <td v-for="(key, columnIndex) in orderedHeaders" :key="`${index}-${key.name}`"
+                    :class="[css.tbodyTd, `column-${columnIndex}`, getCellClass(key)]" :style="getColumnStyle(key)">
+                    <slot v-if="isFieldSpecial(key.name) && extractArgs(key.name) === 'actions'"
+                        :name="extractActionID(key.name)" :row-data="item" :row-index="index" />
+
+                    <template v-if="isFieldSpecial(key.name) && extractArgs(key.name) === 'checkboxes'">
+                        <div class="checkbox">
+                            <input :id="'chk-for-' + index" type="checkbox" :class="css.checkbox" :row-data="item"
+                                :row-index="index" :checked="checkedAll || isCheckedItem(item)"
+                                @click="checkItem(item, $event)" />
+                            <label :for="'chk-for-' + index">
+                            </label>
+                        </div>
+                    </template>
+
+                    <slot v-if="key.customElement" :row-data="item" :row-index="index" :name="customElementName(key)" />
+                    <template v-else-if="key.format">{{ key.format(item[key.name]) }}</template>
+                    <template v-else>{{ item[key.name] }}</template>
+                </td>
+            </tr>
+        </template>
+        <!-- end table rows -->
+
+        <!-- not found message -->
+        <template v-else>
+            <tr :class="css.notFoundTr">
+                <td :colspan="headers.length" :class="css.notFoundTd">
+                    {{ notFoundMessage }}
+                </td>
+            </tr>
+        </template>
+        <!-- end not found message row -->
+    </tbody>
+    <tfoot v-if="hasSlots" :class="css.tfoot">
+        <tr :class="css.tfootTr">
+            <th :colspan="headers.length" :class="css.tfootTd">
+                <div :class="css.footer">
+                    <slot name="pageSizeSelection" />
+                    <slot name="pagination" />
+                </div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

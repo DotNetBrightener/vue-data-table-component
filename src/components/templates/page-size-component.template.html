@@ -1,0 +1,5 @@
+<select :class="['datatable-component-items-per-page', css.select]" @change="onUpdate">
+    <option v-for="item in itemsPerPagePptions" :key="item" :value="item" :selected="itemsPerPage === item">
+        {{ item }}
+    </option>
+</select>

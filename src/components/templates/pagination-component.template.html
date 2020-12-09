@@ -1,0 +1,29 @@
+<div class="pagging">
+    <div class="legend">
+        <slot name="paginationLegend" :start="start" :end="end" :total="totalItems" />
+    </div>
+    <ul class="pagination">
+        <li v-if="movePreviousPage">
+            <a :class="[computedCss.pageBtn, computedCss.goToPreviousPage, isActionDisabled('previousPage') && 'disabled']" @click="changePage(currPage - 1)"
+                class="nav-pre"></a>
+        </li>
+        <li v-for="pageNr in qntPages" :key="pageNr" :class="pageClass(pageNr)">
+            <template v-if="pageNr !== currPage + 1">
+                <a :class="[computedCss.pageBtn, computedCss.pageNumber]" @click="changePage(pageNr)">
+                    {{ pageNr }}
+                </a>
+            </template>
+            <template v-else>
+                <a href="javascript:void(0)" class="active">
+                    {{ pageNr }}
+                </a>
+            </template>
+        </li>
+
+        <li v-if="moveNextPage">
+            <a :class="[computedCss.pageBtn, computedCss.goToNextPage, isActionDisabled('nextPage') && 'disabled']"
+                @click="changePage(currPage + 1)"
+                class="nav-next"></a>
+        </li>
+    </ul>
+</div>
