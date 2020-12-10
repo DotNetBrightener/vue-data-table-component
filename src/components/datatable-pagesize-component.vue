@@ -3,32 +3,32 @@
 
 <script>
 import {
-    defaultMixins
+  defaultMixins
 } from '../default-mixins';
 export default {
-    name: 'datatable-pagesize-component',
-    mixins: [defaultMixins],
-    props: {
-        itemsPerPagePptions: {
-            type: Array,
-            default: () => [10, 30, 50, 100]
-        },
-        itemsPerPage: {
-            type: Number,
-            default: 10
-        },
-        css: {
-            type: Object,
-            default: () => ({
-                select: ''
-            })
-        }
+  name: 'datatable-pagesize-component',
+  mixins: [defaultMixins],
+  props: {
+    itemsPerPageOptions: {
+      type: Array,
+      default: () => [10, 30, 50, 100]
     },
-    methods: {
-        onUpdate: function (event) {
-            this.$emit('on-update', event.target.value)
-        }
+    itemsPerPage: {
+      type: Number,
+      default: 10
+    },
+    css: {
+      type: Object,
+      default: () => ({
+        select: ''
+      })
     }
+  },
+  methods: {
+    onUpdate: function (event) {
+      this.$emit('on-update', event.target.value)
+    }
+  }
 
 }
 </script>

@@ -1,6 +1,6 @@
 {
   "name": "@dotnetbrightener/vue-datatable-component",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": false,
   "description": "A Data table component for VueJS Application with minimal configuration",
   "author": "DotNet Brightener <dotnetbrightener@gmail.com>",
@@ -30,7 +30,7 @@
     "vue": "^2.6.12",
     "vue-jest": "^3.0.4",
     "vue-simple-spinner": "^1.2.8",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.12"
   },
   "eslintConfig": {
     "root": true,

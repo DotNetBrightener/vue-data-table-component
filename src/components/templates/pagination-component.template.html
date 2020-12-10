@@ -1,29 +1,44 @@
-<div class="pagging">
-    <div class="legend">
+<div class="paging" :class="[computedCss.paginationWrapper]">
+    <div class="legend" :class="[computedCss.paginationLegend]">
         <slot name="paginationLegend" :start="start" :end="end" :total="totalItems" />
     </div>
-    <ul class="pagination">
-        <li v-if="movePreviousPage">
-            <a :class="[computedCss.pageBtn, computedCss.goToPreviousPage, isActionDisabled('previousPage') && 'disabled']" @click="changePage(currPage - 1)"
-                class="nav-pre"></a>
-        </li>
-        <li v-for="pageNr in qntPages" :key="pageNr" :class="pageClass(pageNr)">
-            <template v-if="pageNr !== currPage + 1">
-                <a :class="[computedCss.pageBtn, computedCss.pageNumber]" @click="changePage(pageNr)">
-                    {{ pageNr }}
-                </a>
-            </template>
-            <template v-else>
-                <a href="javascript:void(0)" class="active">
-                    {{ pageNr }}
-                </a>
-            </template>
+
+    <ul class="pagination m-0" :class="[computedCss.paginationElements]">
+        <li v-if="movePreviousPage" :class="[computedCss.paginationItem, isActionDisabled('previousPage') && 'disabled']">
+            <a :class="[computedCss.pageBtn, computedCss.goToPreviousPage, isActionDisabled('previousPage') && 'disabled']" 
+                @click="changePage(currentPage - 1)"
+                class="nav-pre">
+                <slot name="previousButton" />
+            </a>
         </li>
 
-        <li v-if="moveNextPage">
+        <li v-for="pageObj in qntPages"
+            :class="pageClass(pageObj.pageIndex)">
+            <a :class="[computedCss.pageBtn, computedCss.pageNumber, pageObj.pageIndex !== currentPage && 'active', pageObj.disabled && 'disabled']" 
+                @click="changePage(pageObj.pageIndex)">
+                {{ pageObj.pageNumber }}
+            </a>
+        </li>
+
+        <li v-if="moveNextPage" :class="[computedCss.paginationItem, isActionDisabled('nextPage') && 'disabled']">
             <a :class="[computedCss.pageBtn, computedCss.goToNextPage, isActionDisabled('nextPage') && 'disabled']"
-                @click="changePage(currPage + 1)"
-                class="nav-next"></a>
+                @click="changePage(currentPage + 1)"
+                class="nav-next">
+                <slot name="nextButton" />
+            </a>
         </li>
     </ul>
+    <template v-if="showPageSelection">
+        <div class="goto-page-dropdown" :class="[computedCss.goToPageDropdown]">
+            <slot name="pageSelectionText" />
+            <select class="col form-control" v-model="switchPageIndex">
+                <option disabled>Go to Page</option>
+                <template v-for="page in goToPageOptions">
+                    <option :value="page.pageIndex">
+                        {{ page.pageNumber }}
+                    </option>
+                </template>
+            </select>
+        </div>
+    </template>
 </div>

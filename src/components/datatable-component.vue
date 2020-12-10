@@ -3,37 +3,36 @@
 import { defaultMixins } from '../default-mixins';
 import draggable from 'vuedraggable';
 
-
 export default {
   name: 'data-table-component',
   props: {
     headerFields: {
       type: Array,
-      required: true,
+      required: true
     },
     data: {
       type: Array,
-      required: true,
+      required: true
     },
     isLoading: {
       type: Boolean,
-      default: false,
+      default: false
     },
     sortField: {
       type: String,
-      default: null,
+      default: null
     },
     sort: {
       type: String,
-      default: null,
+      default: null
     },
     notFoundMsg: {
       type: String,
-      default: null,
+      default: null
     },
     trackBy: {
       type: String,
-      default: "id",
+      default: "id"
     },
     css: {
       type: Object,
@@ -59,24 +58,24 @@ export default {
         checkboxHeader: "checkbox-header",
         checkbox: "checkbox",
         notFoundTr: "not-found-tr",
-        notFoundTd: "not-found-td",
-      }),
+        notFoundTd: "not-found-td"
+      })
     },
     tableHeight: {
       type: String,
-      default: null,
+      default: null
     },
     defaultColumnWidth: {
       type: String,
-      default: "150px",
+      default: "150px"
     },
     headersSortable: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   components: {
-    draggable,
+    draggable
   },
   mixins: [defaultMixins],
 
@@ -87,19 +86,18 @@ export default {
       notFoundMessage: this.notFoundMsg,
       loading: this.isLoading,
       checkedAll: false,
-      itemsChecked: [],
+      itemsChecked: []
     };
   },
 
   computed: {
     orderedHeaders: {
-      get() {
+      get () {
         return this.headers;
       },
-      set(value) {
-        if (!this.headersSortable)
-          return;
-          
+      set (value) {
+        if (!this.headersSortable) { return; }
+
         this.$emit('header-fields-ordered', value.map(header => {
           if (header.__headerFieldType === "string") {
             return header.label;
@@ -109,7 +107,7 @@ export default {
         }));
       }
     },
-    
+
     hasSlots () {
       return (this.$slots.pagination !== undefined || this.$slots.ItemsPerPage !== undefined);
     },
@@ -134,14 +132,14 @@ export default {
         return {
           height: this.tableHeight,
           display: "block",
-          overflowX: "auto",
+          overflowX: "auto"
         };
       }
       return null;
     },
     theadStyle () {
       return this.tableHeight ? { display: "block" } : null;
-    },
+    }
   },
 
   methods: {
@@ -155,7 +153,7 @@ export default {
     updateData: function () {
       const params = {
         sortField: this.sortedField,
-        sort: this.sortedDir,
+        sort: this.sortedDir
       };
 
       this.$emit("on-update", params);
@@ -241,7 +239,7 @@ export default {
       if (item.style) {
         return {
           ...item.style,
-          ...styleWidth,
+          ...styleWidth
         };
       }
 
@@ -263,7 +261,7 @@ export default {
         this.sortedField !== item.name ||
         (this.sortedField === item.name && this.sortedDir === sortDir)
       );
-    },
-  },
+    }
+  }
 }
 </script>

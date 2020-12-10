@@ -2,7 +2,7 @@
     <thead :class="css.thead" :style="theadStyle">
         <draggable v-model="orderedHeaders" tag="tr" :class="css.theadTr">
             <th v-for="(item, columnIndex) in orderedHeaders" :key="item.label"
-                :class="headerItemClass(item, [css.theadTh, `header-column-${columnIndex}`])"
+                :class="headerItemClass(item, [css.theadTh, `header-column-${columnIndex}`, item.sortable && 'header-sortable'])"
                 :style="getColumnStyle(item)">
                 <!-- header free text -->
                 <div v-if="!isFieldSpecial(item.name) && !item.customHeader && extractArgs(item.name) !== 'actions'"

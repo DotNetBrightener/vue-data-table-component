@@ -1,10 +1,10 @@
 export const defaultMixins = {
-    beforeCreate() {
+  beforeCreate () {
 
-    },
-    created() {
-        if (undefined === this['$t']) {
-            this.$t = (...params) => params[0] || '';
-        }
+  },
+  created () {
+    if (undefined === this['$t']) {
+      this.$t = (...params) => params[0] || '';
     }
+  }
 }
